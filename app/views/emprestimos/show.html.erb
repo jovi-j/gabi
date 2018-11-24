@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Aluno:</strong>
+  <%= @emprestimo.aluno %>
+</p>
+
+<p>
+  <strong>Livro:</strong>
+  <%= @emprestimo.livro %>
+</p>
+
+<p>
+  <strong>Dataemprestimo:</strong>
+  <%= @emprestimo.dataemprestimo %>
+</p>
+
+<p>
+  <strong>Datadevolucao:</strong>
+  <%= @emprestimo.datadevolucao %>
+</p>
+
+<%= link_to 'Edit', edit_emprestimo_path(@emprestimo) %> |
+<%= link_to 'Back', emprestimos_path %>

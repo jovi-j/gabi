@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  aluno: one
+  livro: one
+  dataemprestimo: 2018-11-24
+  datadevolucao: 2018-11-24
+
+two:
+  aluno: two
+  livro: two
+  dataemprestimo: 2018-11-24
+  datadevolucao: 2018-11-24

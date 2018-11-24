@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Emprestimos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Aluno</th>
+      <th>Livro</th>
+      <th>Dataemprestimo</th>
+      <th>Datadevolucao</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @emprestimos.each do |emprestimo| %>
+      <tr>
+        <td><%= emprestimo.aluno %></td>
+        <td><%= emprestimo.livro %></td>
+        <td><%= emprestimo.dataemprestimo %></td>
+        <td><%= emprestimo.datadevolucao %></td>
+        <td><%= link_to 'Show', emprestimo %></td>
+        <td><%= link_to 'Edit', edit_emprestimo_path(emprestimo) %></td>
+        <td><%= link_to 'Destroy', emprestimo, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Emprestimo', new_emprestimo_path %>
