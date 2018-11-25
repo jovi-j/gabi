@@ -24,15 +24,26 @@ class EmprestimosController < ApplicationController
   # POST /emprestimos
   # POST /emprestimos.json
   def create
-    @emprestimo = Emprestimo.new(emprestimo_params)
 
-    respond_to do |format|
-      if @emprestimo.save
-        format.html { redirect_to @emprestimo, notice: 'Emprestimo was successfully created.' }
-        format.json { render :show, status: :created, location: @emprestimo }
-      else
-        format.html { render :new }
+    aluno = Aluno.where(matricula: emprestimo_params["matricula"]).first
+    livro = Livro.where(titulo: emprestimo_params["titulo"]).first
+    e = {:aluno_id => aluno.id, :livro_id => livro.id, :dataemprestimo => Date.today, :datadevolucao => nil}
+    @emprestimo = Emprestimo.new(e)
+
+    if @emprestimo.check_aluno(e["aluno_id"])
+        if @emprestimo.check_livro(e["livro_id"])
+          respond_to do |format|
+          if @emprestimo.save
+            format.html { redirect_to @emprestimo, notice: 'O Emprestimo foi criado.' }
+            format.json { render :show, status: :created, location: @emprestimo }
+            else
+            format.html { render :new, notice: 'O Livro está emprestado.' }
+            format.json { render json: @emprestimo.errors, status: :unprocessable_entity }
+          end
+        else
+        format.html { render :new, notice: 'O aluno possui 3 emprestimos.' }
         format.json { render json: @emprestimo.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -69,6 +80,6 @@ class EmprestimosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def emprestimo_params
-      params.require(:emprestimo).permit(:aluno_id, :livro_id, :dataemprestimo, :datadevolucao)
+      params.require(:emprestimo).permit(:matricula, :titulo)
     end
 end
