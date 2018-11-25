@@ -2,20 +2,20 @@ class Emprestimo < ApplicationRecord
   belongs_to :aluno
   belongs_to :livro
 
-  def self.set_datadevolucao
+  def set_datadevolucao
     self.datadevolucao = Date.today
   end
 
-  def self.check_aluno(id)
-    emprA = Emprestimos.where(aluno_id: id).lenght
+  def check_aluno(id)
+    emprA = Emprestimo.where(aluno_id: id).length
     if emprA > 3
       return false
     end
     return true
   end
 
-  def self.check_livro(id)
-      emprL = Emprestimos.where(livro_id: id).lenght
+  def check_livro(id)
+    emprL = Emprestimo.where(livro_id: id).length
       if emprL > 0
         return false
       end
