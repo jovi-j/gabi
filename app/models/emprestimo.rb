@@ -6,16 +6,16 @@ class Emprestimo < ApplicationRecord
     self.datadevolucao = Date.today
   end
 
-  def check_aluno(id)
-    emprA = Emprestimo.where(aluno_id: id).length
+  def check_aluno()
+    emprA = Emprestimo.where(aluno_id: self.aluno_id).length
     if emprA > 3
       return false
     end
     return true
   end
 
-  def check_livro(id)
-    emprL = Emprestimo.where(livro_id: id).length
+  def check_livro()
+    emprL = Emprestimo.where(livro_id: self.livro_id).length
       if emprL > 0
         return false
       end

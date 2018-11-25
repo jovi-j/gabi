@@ -1,5 +1,6 @@
 class EmprestimosController < ApplicationController
   before_action :set_emprestimo, only: [:show, :edit, :update, :destroy]
+  before_action :e, only: [:create]
 
   # GET /emprestimos
   # GET /emprestimos.json
@@ -24,34 +25,34 @@ class EmprestimosController < ApplicationController
   # POST /emprestimos
   # POST /emprestimos.json
   def create
-    aluno = Aluno.where(matricula: emprestimo_params["matricula"]).first
-    livro = Livro.where(titulo: emprestimo_params["titulo"]).first
-    e = {aluno_id: aluno.id, livro_id: livro.id, dataemprestimo: Date.today, datadevolucao: nil}
     @emprestimo = Emprestimo.new(e)
 
-    if @emprestimo.check_aluno(e["aluno_id"])
-        if @emprestimo.check_livro(e["livro_id"])
-          respond_to do |format|
-            if @emprestimo.save
-              format.html { redirect_to @emprestimo, notice: 'O Emprestimo foi criado.' }
-              format.json { render :show, status: :created, location: @emprestimo }
-            end
+    respond_to do |format|
+      if @emprestimo.check_aluno
+          if @emprestimo.check_livro 
+              if @emprestimo.save
+                format.html { redirect_to @emprestimo, notice: 'O Emprestimo foi criado.' }
+                format.json { render :show, status: :created, location: @emprestimo }
+              else
+                format.html { render :edit, notice: 'deu bosta.' }
+                format.json { render json: @emprestimo.errors, status: :unprocessable_entity }
+              end
+          else
+            format.html { render :new, notice: 'O Livro está emprestado.'}
+            byebug
           end
-        else
-          format.html { render :new, notice: 'O Livro está emprestado.' }
-          format.json { render json: @emprestimo.errors, status: :unprocessable_entity }
-        end
-    else
-      format.html { render :new, notice: 'O aluno possui 3 emprestimos.' }
-      format.json { render json: @emprestimo.errors, status: :unprocessable_entity }
-    end
+      else
+        format.html { render :new, notice: 'O aluno possui 3 emprestimos.' }
+
+      end
   end
+end
 
   # PATCH/PUT /emprestimos/1
   # PATCH/PUT /emprestimos/1.json
   def update
     respond_to do |format|
-      if @emprestimo.update(emprestimo_params)
+      if @emprestimo.update(eparams)
         format.html { redirect_to @emprestimo, notice: 'Emprestimo was successfully updated.' }
         format.json { render :show, status: :ok, location: @emprestimo }
       else
@@ -78,7 +79,13 @@ class EmprestimosController < ApplicationController
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def emprestimo_params
+    def eparams
       params.require(:emprestimo).permit(:matricula, :titulo)
+    end
+
+    def e
+      aluno = Aluno.where(matricula: eparams[:matricula]).first
+      livro = Livro.where(titulo: eparams[:titulo]).first
+      e = {aluno_id: aluno.id, livro_id: livro.id, dataemprestimo: Date.today, datadevolucao: nil}
     end
 end
