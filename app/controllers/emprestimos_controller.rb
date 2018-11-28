@@ -8,6 +8,18 @@ class EmprestimosController < ApplicationController
     @emprestimos = Emprestimo.all
   end
 
+  #GET /atrasados
+  def atrasados
+    @emprestimos = Emprestimo.where("datadevolucao = IS NULL and dataemprestimo < #{Date.today - 14.days}")
+    render "index"
+  end
+
+  #GET /ativos
+  def ativos
+    @emprestimos = Emprestimo.where(:datadevolucao == nil)
+    render "index"
+  end
+
   # GET /emprestimos/1
   # GET /emprestimos/1.json
   def show
@@ -72,6 +84,19 @@ end
     end
   end
 
+  def devolucao
+    eparams[:datadevolucao] = Date.today
+    respond_to do |format|
+      if @emprestimo.update(eparams)
+        format.html { redirect_to @emprestimo, notice: 'Emprestimo foi devolvido.' }
+        format.json { render :show, status: :ok, location: @emprestimo }
+      else
+        format.html { render :edit }
+        format.json { render json: @emprestimo.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_emprestimo
@@ -80,7 +105,12 @@ end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def eparams
-      params.require(:emprestimo).permit(:matricula, :titulo)
+      if params[:matricula].blank?
+        params.require(:emprestimo).permit(:aluno_id, :livro_id,:dataemprestimo, :datadevolucao)
+      else
+        params.require(:emprestimo).permit(:matricula, :titulo)  
+      end
+      
     end
 
     def e

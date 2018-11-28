@@ -22,6 +22,7 @@
         <td><%= emprestimo.datadevolucao %></td>
         <td><%= link_to 'Show', emprestimo %></td>
         <td><%= link_to 'Edit', edit_emprestimo_path(emprestimo) %></td>
+        <td><%= link_to 'Devolução', emprestimos_devolucao_path(emprestimo) %></td>
         <td><%= link_to 'Destroy', emprestimo, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
@@ -29,5 +30,7 @@
 </table>
 
 <br>
+<%= link_to 'Ativos', emprestimos_ativos_path%>
+<%= link_to 'Atrasados', emprestimos_atrasados_path%>
 
 <%= link_to 'New Emprestimo', new_emprestimo_path %>
