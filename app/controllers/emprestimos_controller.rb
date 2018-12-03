@@ -1,5 +1,5 @@
 class EmprestimosController < ApplicationController
-  before_action :set_emprestimo, only: [:show, :edit, :update, :destroy]
+  before_action :set_emprestimo, only: [:show, :edit, :update, :destroy, :devolucao]
   before_action :e, only: [:create]
 
   # GET /emprestimos
@@ -10,13 +10,13 @@ class EmprestimosController < ApplicationController
 
   #GET /atrasados
   def atrasados
-    @emprestimos = Emprestimo.where("datadevolucao = IS NULL and dataemprestimo < #{Date.today - 14.days}")
+    @emprestimos = Emprestimo.atrasados
     render "index"
   end
 
   #GET /ativos
   def ativos
-    @emprestimos = Emprestimo.where(:datadevolucao == nil)
+    @emprestimos = Emprestimo.ativos
     render "index"
   end
 
@@ -85,9 +85,9 @@ end
   end
 
   def devolucao
-    eparams[:datadevolucao] = Date.today
+    @emprestimo[:datadevolucao] = Date.today
     respond_to do |format|
-      if @emprestimo.update(eparams)
+      if @emprestimo.update(@emprestimo.attributes)
         format.html { redirect_to @emprestimo, notice: 'Emprestimo foi devolvido.' }
         format.json { render :show, status: :ok, location: @emprestimo }
       else
@@ -105,11 +105,8 @@ end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def eparams
-      if params[:matricula].blank?
-        params.require(:emprestimo).permit(:aluno_id, :livro_id,:dataemprestimo, :datadevolucao)
-      else
-        params.require(:emprestimo).permit(:matricula, :titulo)  
-      end
+        params.require(:emprestimo).permit(:aluno_id, :livro_id,:dataemprestimo, :datadevolucao, :matricula, :titulo)
+      
       
     end
 

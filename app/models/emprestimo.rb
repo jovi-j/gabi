@@ -2,6 +2,9 @@ class Emprestimo < ApplicationRecord
   belongs_to :aluno
   belongs_to :livro
 
+  scope :atrasados, ->  {where("datadevolucao IS ? and dataemprestimo < #{Date.today - 14.days}", nil)}
+  scope :ativos, ->  {where("datadevolucao IS ?", nil)}
+
   def set_datadevolucao
     self.datadevolucao = Date.today
   end

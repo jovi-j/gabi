@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 2018_11_24_211802) do
 
-  create_table "alunos", force: :cascade do |t|
+  create_table "alunos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "nome"
     t.string "matricula"
     t.string "cpf"
@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 2018_11_24_211802) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "emprestimos", force: :cascade do |t|
+  create_table "emprestimos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "aluno_id"
     t.integer "livro_id"
     t.date "dataemprestimo"
@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 2018_11_24_211802) do
     t.index ["livro_id"], name: "index_emprestimos_on_livro_id"
   end
 
-  create_table "livros", force: :cascade do |t|
+  create_table "livros", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "titulo"
     t.string "autor"
     t.string "editora"
