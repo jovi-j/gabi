@@ -1,9 +1,15 @@
 class Emprestimo < ApplicationRecord
   belongs_to :user
   belongs_to :livro
+  cattr_accessor :current_user
 
   scope :atrasados, ->  {where("datadevolucao IS ? and dataemprestimo < ?", nil, Date.today - 21.days)}
+
   scope :ativos, ->  {where("datadevolucao IS ?", nil)}
+
+  scope :uatrasados, -> {where("datadevolucao IS ? and dataemprestimo < ?", nil, Date.today - 21.days).where(user_id: current_user)}
+
+  scope :uativos, -> {where("datadevolucao IS ?", nil).where(user_id: current_user)}
 
   def set_datadevolucao
     self.datadevolucao = Date.today

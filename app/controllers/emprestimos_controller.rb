@@ -6,18 +6,31 @@ class EmprestimosController < ApplicationController
   # GET /emprestimos
   # GET /emprestimos.json
   def index
+    if current_user.admin?
     @emprestimos = Emprestimo.all
+    else
+    @emprestimos = Emprestimo.where(user_id: current_user)
+    end
   end
 
   #GET /atrasados
   def atrasados
-    @emprestimos = Emprestimo.atrasados
+    if current_user.admin?
+      @emprestimos = Emprestimo.atrasados
+  else
+      @emprestimos = Emprestimo.uatrasados
+  end
     render "index"
+
   end
 
   #GET /ativos
   def ativos
-    @emprestimos = Emprestimo.ativos
+    if current_user.admin?
+        @emprestimos = Emprestimo.ativos
+    else
+        @emprestimos = Emprestimo.uativos
+    end
     render "index"
   end
 
