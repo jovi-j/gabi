@@ -105,18 +105,12 @@ end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def eparams
-        params.require(:emprestimo).permit(:user_id, :livro_id, :dataemprestimo, :datadevolucao, :matricula, :titulo)
-      
-      
+        params.require(:emprestimo).permit(:user_id, :livro_id, :dataemprestimo, :datadevolucao, :matricula, :codigo)     
     end
 
     def e
       user = User.where(matricula: eparams[:matricula]).first
       livro = Livro.where(titulo: eparams[:titulo]).first
-      if livro.especial?
-        e = {user_id: user.id, livro_id: livro.id, dataemprestimo: Date.today, datadevolucao: Date.today + 3.days}
-      else
-        e = {user_id: user.id, livro_id: livro.id, dataemprestimo: Date.today, datadevolucao: nil}
-      end
+      e = {user_id: user.id, livro_id: livro.id, dataemprestimo: Date.today, datadevolucao: nil}
     end
 end

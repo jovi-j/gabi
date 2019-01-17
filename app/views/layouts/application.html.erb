@@ -10,10 +10,12 @@
   </head>
 
   <body>
+  <% if user_signed_in?%>
   <nav>
     <li><%= link_to 'Emprestimos', emprestimos_path %></li>
     <li><%= link_to 'Livros', livros_path %></li>
   </nav>
+  <% end%>
     <%= yield %>
   </body>
 </html>
