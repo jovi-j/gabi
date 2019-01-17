@@ -2,14 +2,12 @@
 
 one:
   titulo: MyString
+  codigo: MyString
   autor: MyString
-  editora: MyString
-  anopublicacao: 1
-  edicao: MyString
+  especial: false
 
 two:
   titulo: MyString
+  codigo: MyString
   autor: MyString
-  editora: MyString
-  anopublicacao: 1
-  edicao: MyString
+  especial: false

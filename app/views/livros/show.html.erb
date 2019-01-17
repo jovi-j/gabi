@@ -6,23 +6,18 @@
 </p>
 
 <p>
+  <strong>Codigo:</strong>
+  <%= @livro.codigo %>
+</p>
+
+<p>
   <strong>Autor:</strong>
   <%= @livro.autor %>
 </p>
 
 <p>
-  <strong>Editora:</strong>
-  <%= @livro.editora %>
-</p>
-
-<p>
-  <strong>Anopublicacao:</strong>
-  <%= @livro.anopublicacao %>
-</p>
-
-<p>
-  <strong>Edicao:</strong>
-  <%= @livro.edicao %>
+  <strong>Especial:</strong>
+  <%= @livro.especial %>
 </p>
 
 <%= link_to 'Edit', edit_livro_path(@livro) %> |

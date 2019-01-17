@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Bibliotecarails</title>
+    <title>GABI</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -12,9 +12,8 @@
   <body>
   <nav>
     <li><%= link_to 'Emprestimos', emprestimos_path %></li>
-    <li><%= link_to 'Alunos', alunos_path %></li>
     <li><%= link_to 'Livros', livros_path %></li>
-</nav>
+  </nav>
     <%= yield %>
   </body>
 </html>

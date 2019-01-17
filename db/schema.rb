@@ -10,37 +10,45 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_24_211802) do
+ActiveRecord::Schema.define(version: 2019_01_17_123548) do
 
-  create_table "alunos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "nome"
-    t.string "matricula"
-    t.string "cpf"
-    t.date "datanascimento"
-    t.string "endereco"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
-  create_table "emprestimos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.integer "aluno_id"
-    t.integer "livro_id"
+  create_table "emprestimos", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "livro_id"
     t.date "dataemprestimo"
     t.date "datadevolucao"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["aluno_id"], name: "index_emprestimos_on_aluno_id"
     t.index ["livro_id"], name: "index_emprestimos_on_livro_id"
+    t.index ["user_id"], name: "index_emprestimos_on_user_id"
   end
 
-  create_table "livros", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "livros", force: :cascade do |t|
     t.string "titulo"
+    t.string "codigo"
     t.string "autor"
-    t.string "editora"
-    t.integer "anopublicacao"
-    t.string "edicao"
+    t.boolean "especial"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
+  create_table "users", force: :cascade do |t|
+    t.string "matricula", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "nome"
+    t.boolean "admin"
+    t.index ["matricula"], name: "index_users_on_matricula", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  add_foreign_key "emprestimos", "livros"
+  add_foreign_key "emprestimos", "users"
 end

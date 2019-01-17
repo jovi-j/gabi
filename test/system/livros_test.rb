@@ -14,10 +14,9 @@ class LivrosTest < ApplicationSystemTestCase
     visit livros_url
     click_on "New Livro"
 
-    fill_in "Anopublicacao", with: @livro.anopublicacao
     fill_in "Autor", with: @livro.autor
-    fill_in "Edicao", with: @livro.edicao
-    fill_in "Editora", with: @livro.editora
+    fill_in "Codigo", with: @livro.codigo
+    fill_in "Especial", with: @livro.especial
     fill_in "Titulo", with: @livro.titulo
     click_on "Create Livro"
 
@@ -29,10 +28,9 @@ class LivrosTest < ApplicationSystemTestCase
     visit livros_url
     click_on "Edit", match: :first
 
-    fill_in "Anopublicacao", with: @livro.anopublicacao
     fill_in "Autor", with: @livro.autor
-    fill_in "Edicao", with: @livro.edicao
-    fill_in "Editora", with: @livro.editora
+    fill_in "Codigo", with: @livro.codigo
+    fill_in "Especial", with: @livro.especial
     fill_in "Titulo", with: @livro.titulo
     click_on "Update Livro"
 

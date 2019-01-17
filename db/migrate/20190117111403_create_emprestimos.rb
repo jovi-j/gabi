@@ -1,7 +1,7 @@
 class CreateEmprestimos < ActiveRecord::Migration[5.2]
   def change
     create_table :emprestimos do |t|
-      t.references :aluno, foreign_key: true
+      t.references :user, foreign_key: true
       t.references :livro, foreign_key: true
       t.date :dataemprestimo
       t.date :datadevolucao

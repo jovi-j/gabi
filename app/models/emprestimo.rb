@@ -1,8 +1,8 @@
 class Emprestimo < ApplicationRecord
-  belongs_to :aluno
+  belongs_to :user
   belongs_to :livro
 
-  scope :atrasados, ->  {where("datadevolucao IS ? and dataemprestimo < #{Date.today - 14.days}", nil)}
+  scope :atrasados, ->  {where("datadevolucao IS ? and dataemprestimo < ?", nil, Date.today - 21.days)}
   scope :ativos, ->  {where("datadevolucao IS ?", nil)}
 
   def set_datadevolucao
@@ -10,7 +10,7 @@ class Emprestimo < ApplicationRecord
   end
 
   def check_aluno()
-    emprA = Emprestimo.where(aluno_id: self.aluno_id).length
+    emprA = Emprestimo.where(user_id: self.user_id).length
     if emprA > 3
       return false
     end

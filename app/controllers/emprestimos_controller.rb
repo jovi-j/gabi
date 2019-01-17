@@ -1,6 +1,6 @@
 class EmprestimosController < ApplicationController
   before_action :set_emprestimo, only: [:show, :edit, :update, :destroy, :devolucao]
-  before_action :e, only: [:create]
+  before_action :e, only: [:create, :new]
 
   # GET /emprestimos
   # GET /emprestimos.json
@@ -27,7 +27,8 @@ class EmprestimosController < ApplicationController
 
   # GET /emprestimos/new
   def new
-    @emprestimo = Emprestimo.new
+      @emprestimo = Emprestimo.new
+
   end
 
   # GET /emprestimos/1/edit
@@ -51,7 +52,6 @@ class EmprestimosController < ApplicationController
               end
           else
             format.html { render :new, notice: 'O Livro está emprestado.'}
-            byebug
           end
       else
         format.html { render :new, notice: 'O aluno possui 3 emprestimos.' }
@@ -105,14 +105,18 @@ end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def eparams
-        params.require(:emprestimo).permit(:aluno_id, :livro_id,:dataemprestimo, :datadevolucao, :matricula, :titulo)
+        params.require(:emprestimo).permit(:user_id, :livro_id, :dataemprestimo, :datadevolucao, :matricula, :titulo)
       
       
     end
 
     def e
-      aluno = Aluno.where(matricula: eparams[:matricula]).first
+      user = User.where(matricula: eparams[:matricula]).first
       livro = Livro.where(titulo: eparams[:titulo]).first
-      e = {aluno_id: aluno.id, livro_id: livro.id, dataemprestimo: Date.today, datadevolucao: nil}
+      if livro.especial?
+        e = {user_id: user.id, livro_id: livro.id, dataemprestimo: Date.today, datadevolucao: Date.today + 3.days}
+      else
+        e = {user_id: user.id, livro_id: livro.id, dataemprestimo: Date.today, datadevolucao: nil}
+      end
     end
 end

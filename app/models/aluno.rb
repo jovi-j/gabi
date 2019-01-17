@@ -1,2 +1,0 @@
-class Aluno < ApplicationRecord
-end

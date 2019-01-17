@@ -2,10 +2,9 @@ class CreateLivros < ActiveRecord::Migration[5.2]
   def change
     create_table :livros do |t|
       t.string :titulo
+      t.string :codigo
       t.string :autor
-      t.string :editora
-      t.integer :anopublicacao
-      t.string :edicao
+      t.boolean :especial
 
       t.timestamps
     end

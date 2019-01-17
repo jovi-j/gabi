@@ -17,23 +17,18 @@
   </div>
 
   <div class="field">
+    <%= form.label :codigo %>
+    <%= form.text_field :codigo %>
+  </div>
+
+  <div class="field">
     <%= form.label :autor %>
     <%= form.text_field :autor %>
   </div>
 
   <div class="field">
-    <%= form.label :editora %>
-    <%= form.text_field :editora %>
-  </div>
-
-  <div class="field">
-    <%= form.label :anopublicacao %>
-    <%= form.number_field :anopublicacao %>
-  </div>
-
-  <div class="field">
-    <%= form.label :edicao %>
-    <%= form.text_field :edicao %>
+    <%= form.label :especial %>
+    <%= form.check_box :especial %>
   </div>
 
   <div class="actions">

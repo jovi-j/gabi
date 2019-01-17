@@ -16,7 +16,7 @@
   <tbody>
     <% @emprestimos.each do |emprestimo| %>
       <tr>
-        <td><%= emprestimo.aluno.nome %></td>
+        <td><%= emprestimo.user.matricula %></td>
         <td><%= emprestimo.livro.titulo %></td>
         <td><%= emprestimo.dataemprestimo %></td>
         <% if emprestimo.datadevolucao.blank? %>
