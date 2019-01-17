@@ -1,15 +1,17 @@
 <p id="notice"><%= notice %></p>
+  <h1 class="title out-title">Livros</h1>
+</div>
 
-<h1>Livros</h1>
-
-<table>
+<table class="table">
   <thead>
     <tr>
       <th>Titulo</th>
       <th>Codigo</th>
       <th>Autor</th>
       <th>Especial</th>
-      <th colspan="4"></th>
+       <% if current_user.admin?%>
+      <th colspan="4">Opções</th>
+       <%end%>
     </tr>
   </thead>
 
@@ -20,9 +22,11 @@
         <td><%= livro.codigo %></td>
         <td><%= livro.autor %></td>
         <td><%= livro.especial %></td>
-        <td><%= link_to 'Show', livro %></td>
-        <td><%= link_to 'Edit', edit_livro_path(livro) %></td>
-        <td><%= link_to 'Destroy', livro, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if current_user.admin?%>
+        <td><%= link_to 'Detalhar Livro', livro %></td>
+        <td><%= link_to 'Editar Livro', edit_livro_path(livro) %></td>
+        <td><%= link_to 'Apagar Livro', livro, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <%end%>
       </tr>
     <% end %>
   </tbody>
@@ -30,4 +34,3 @@
 
 <br>
 
-<%= link_to 'New Livro', new_livro_path %>

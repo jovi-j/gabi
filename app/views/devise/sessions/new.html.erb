@@ -1,26 +1,35 @@
-<h2>Log in</h2>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+
+<%= form_for(resource, as: resource_name ,url: session_path(resource_name), :html => {'class' => 'form box boxbox'}) do |f| %>
+
+<h2 class="title">Entrar</h2>
   <div class="field">
-    <%= f.label :matricula %><br />
-    <%= f.text_field :matricula, autofocus: true, autocomplete: "matricula" %>
+    <%= f.label "Matrícula", class: "label" %>
+    <%= f.text_field :matricula, autofocus: true, autocomplete: "matricula", class:"input" %>
   </div>
 
   <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
+    <%= f.label :password, class: "label" %>
+    <%= f.password_field :password, autocomplete: "current-password", class:"input" %>
   </div>
 
   <% if devise_mapping.rememberable? -%>
     <div class="field">
-      <%= f.check_box :remember_me %>
       <%= f.label :remember_me %>
+      <%= f.check_box :remember_me %>
     </div>
   <% end %>
 
-  <div class="actions">
-    <%= f.submit "Log in" %>
-  </div>
-<% end %>
+  <div class="columns">
+    <div class="column is-2">
+      <%= f.submit "Entrar", class: "button is-primary" %>
+      </div>
+    <p class="column has-text-justified is-size-5 is-1">ou</p>
+    <div class="column is-2">
+      <%= render "devise/shared/links" %>
+    </div>
+  <br>
 
-<%= render "devise/shared/links" %>
+  </div>
+  
+<% end %>

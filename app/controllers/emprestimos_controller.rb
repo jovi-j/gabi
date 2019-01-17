@@ -1,6 +1,7 @@
 class EmprestimosController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_emprestimo, only: [:show, :edit, :update, :destroy, :devolucao]
-  before_action :e, only: [:create, :new]
+  before_action :e, only: :create
 
   # GET /emprestimos
   # GET /emprestimos.json
@@ -27,8 +28,7 @@ class EmprestimosController < ApplicationController
 
   # GET /emprestimos/new
   def new
-      @emprestimo = Emprestimo.new
-
+    @emprestimo = Emprestimo.new
   end
 
   # GET /emprestimos/1/edit
@@ -54,7 +54,7 @@ class EmprestimosController < ApplicationController
             format.html { render :new, notice: 'O Livro está emprestado.'}
           end
       else
-        format.html { render :new, notice: 'O aluno possui 3 emprestimos.' }
+        format.html { render :new, notice: 'O aluno possui 3 empréstimos.' }
 
       end
   end
@@ -105,12 +105,12 @@ end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def eparams
-        params.require(:emprestimo).permit(:user_id, :livro_id, :dataemprestimo, :datadevolucao, :matricula, :codigo)     
+        params.require(:emprestimo).permit(:user_id, :livro_id, :dataemprestimo, :datadevolucao, :matricula, :codigo)
     end
 
     def e
       user = User.where(matricula: eparams[:matricula]).first
-      livro = Livro.where(titulo: eparams[:titulo]).first
+      livro = Livro.where(codigo: eparams[:codigo]).first
       e = {user_id: user.id, livro_id: livro.id, dataemprestimo: Date.today, datadevolucao: nil}
     end
 end

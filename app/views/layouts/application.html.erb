@@ -12,14 +12,28 @@
   <body>
   <% if user_signed_in?%>
    <aside class="menu">
-        <%= link_to "GABI", root_path, class: "menu-label"%>
+        <%= link_to "GABI", root_path, class: "menu-brand"%>
+        <div class="menu-label">Açoes</div>
         <ul class="menu-list">
     <li>
-        <%= link_to "Livros", livros_path %></li>
+        <%= link_to "Listar Livros", livros_path %></li>
     <li>
-        <%= link_to "Emprestimos", emprestimos_path %>
+        <%= link_to "Listar Emprestimos", emprestimos_path %>
     </li>
+        
+        <div class="menu-label">Usuário - <small><%= current_user.matricula%></small> <% if current_user.admin?%> <small class="tag is-1">Admin</small> <%end%> </div>
+        <li><%= link_to "Realizar Empréstimo", new_emprestimo_path %></li>
+        
+        <% if current_user.admin?%>
+        <div class="menu-label">Administração</div>
+        <li><%= link_to "Adicionar Livro ao Banco", new_livro_path %></li>
+        <%end%>
+        
+        <div class="menu-lastitem">
+            <%= link_to  "Sair", destroy_user_session_path, method: :delete %>
+        </div>
         </ul>
+
         </aside>
     
   </nav>

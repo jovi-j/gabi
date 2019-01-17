@@ -1,24 +1,30 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Aluno:</strong>
-  <%= @emprestimo.user.matricula %>
-</p>
-
-<p>
-  <strong>Livro:</strong>
-  <%= @emprestimo.livro.titulo %>
-</p>
-
-<p>
-  <strong>Dataemprestimo:</strong>
-  <%= @emprestimo.dataemprestimo %>
-</p>
-
-<p>
-  <strong>Datadevolucao:</strong>
-  <%= @emprestimo.datadevolucao %>
-</p>
-
-<%= link_to 'Edit', edit_emprestimo_path(@emprestimo) %> |
-<%= link_to 'Back', emprestimos_path %>
+<div class="box">
+  <p>
+    <strong>Aluno:</strong>
+    <%= @emprestimo.user.matricula %>
+  </p>
+  
+  <p>
+    <strong>Livro:</strong>
+    <%= @emprestimo.livro.titulo %>
+  </p>
+  
+  <p>
+    <strong>Data de Empréstimo:</strong>
+    <%= @emprestimo.dataemprestimo %>
+  </p>
+  
+  <p>
+    <strong>Data de Devolução:</strong>
+    <% if @emprestimo.datadevolucao == nil%>
+    Ainda não devolvido
+    <%else%>
+    <%= @emprestimo.datadevolucao %>
+    <%end%>
+  </p>
+  
+  <%= link_to 'Edit', edit_emprestimo_path(@emprestimo), class:"button" %>
+  <%= link_to 'Back', emprestimos_path, class:"button" %>
+</div>

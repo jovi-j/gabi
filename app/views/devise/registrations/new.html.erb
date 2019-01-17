@@ -1,29 +1,35 @@
-<h2>Sign up</h2>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), :html => {"class": "form box boxbox"}) do |f| %>
   <%= devise_error_messages! %>
-
+<h2 class="title">Registrar-se na GABI</h2>
   <div class="field">
-    <%= f.label :matricula %><br />
-    <%= f.text_field :matricula, autofocus: true, autocomplete: "matricula" %>
+    <%= f.label :matricula  %>
+    <%= f.text_field :matricula, autofocus: true, autocomplete: "matricula", class: "input" %>
   </div>
 
   <div class="field">
     <%= f.label :password %>
     <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
+    <small>(a senha deve conter no mínimo <%= @minimum_password_length %> caractere)</small>
+    <% end %>
+    <%= f.password_field :password, autocomplete: "new-password", class: "input" %>
   </div>
 
   <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+    <%= f.label :password_confirmation %>
+    <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "input" %>
   </div>
 
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
+ <div class="columns">
+    <div class="column is-3">
+      <%= f.submit "Registrar-se", class: "button is-primary" %>
+      </div>
+    <p class="column has-text-justified is-size-5 is-1">ou</p>
+    <div class="column is-3">
+      <%= render "devise/shared/links" %>
+    </div>
+  <br>
 <% end %>
 
-<%= render "devise/shared/links" %>
+

@@ -1,4 +1,5 @@
 class LivrosController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_livro, only: [:show, :edit, :update, :destroy]
 
   # GET /livros
@@ -24,6 +25,7 @@ class LivrosController < ApplicationController
   # POST /livros
   # POST /livros.json
   def create
+    
     @livro = Livro.new(livro_params)
 
     respond_to do |format|
