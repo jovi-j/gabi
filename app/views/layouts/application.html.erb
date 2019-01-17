@@ -11,11 +11,27 @@
 
   <body>
   <% if user_signed_in?%>
-  <nav>
-    <li><%= link_to 'Emprestimos', emprestimos_path %></li>
-    <li><%= link_to 'Livros', livros_path %></li>
+   <aside class="menu">
+        <%= link_to "GABI", root_path, class: "menu-label"%>
+        <ul class="menu-list">
+    <li>
+        <%= link_to "Livros", livros_path %></li>
+    <li>
+        <%= link_to "Emprestimos", emprestimos_path %>
+    </li>
+        </ul>
+        </aside>
+    
   </nav>
-  <% end%>
-    <%= yield %>
+    <section class="section main">
+      <%= yield %>
+    </section>
+  <% else%>
+
+  <section class="section login">
+      <%= yield %>
+  </section>
+  
+  <% end%>  
   </body>
 </html>

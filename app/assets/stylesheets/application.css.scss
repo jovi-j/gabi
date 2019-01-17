@@ -1,1 +1,30 @@
 @import 'bulma';
+
+aside{
+    z-index: 1;
+    padding-top: 1vh;
+    height: 100%;
+    position: fixed;
+    width: 20vw;
+}
+
+.main{
+    margin-left: 20vw;
+}
+body{
+    padding: 1rem;
+    background: #44A08D;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #093637, #44A08D);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #093637, #44A08D); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+
+}
+.rmbme{
+    display: flex;
+}
+.checkbox{
+    margin-left: 1rem;
+}
+.box{
+    width: 40vw;
+}
