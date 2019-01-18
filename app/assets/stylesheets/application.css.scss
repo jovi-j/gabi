@@ -46,6 +46,10 @@ body {
   font-weight: 100;
   font-size: 28px;
   margin-left: 7.5vw;
+  &:hover{
+    color: #3aa17e;
+
+  }
 }
 
 .out-title {
@@ -74,4 +78,7 @@ table {
 .boxbox {
   width: 30vw;
   margin: 30vh auto;
+}
+.is-small{
+  margin-left: 0.6rem;
 }

@@ -1,7 +1,21 @@
 <p id="notice"><%= notice %></p>
 
+<div class="level">
+  <% if current_user.admin?%>
+  <h1 class="level-left title out-title">Empréstimos do Sistema</h1>
+  <% else%>
+  <h1 class="level-left title out-title">Seus Empréstimos</h1>
+  <%end%>
 
-<h1 class="title out-title">Emprestimos</h1>
+  <%= form_tag("/emprestimos/buscar", method: "get", class: "form level-right") do %>
+  <%= text_field_tag(:inf, "", class: 'input is-small', placeholder: 'Procurar por matrícula ou titulo do livro...') %>
+  <%= submit_tag("Procurar", class: 'button is-small') %>
+  <% end %>
+  <%# <form action="" method="POST" class="level-right">
+  <input type="text" placeholder="Digite o código do livro ou a matrícula do aluno" name="inf" class="input">
+  <button class="button" type="submit">Buscar</button> %>
+  </form>
+</div>
 
 
 
@@ -10,9 +24,11 @@
     <tr>
       <th>Aluno</th>
       <th>Livro</th>
-      <th>Data de Emprestimo</th>
-      <th>Data de Devolucao</th>
-      <th colspan="4"> Opções</th>
+      <th>Data de Empréstimo</th>
+      <th>Data de Devolução</th>
+      <% if current_user.admin? %>
+      <th colspan="3">Opções de Administrador</th>
+      <% end%>
     </tr>
   </thead>
 
@@ -27,16 +43,18 @@
         <% else %>
         <td><%= emprestimo.datadevolucao %></td>
         <% end %>
-        <td><%= link_to 'Detalhar Empréstimo', emprestimo %></td>
+        <% if current_user.admin? %>
+        <%# <td><%= link_to 'Detalhar Empréstimo', emprestimo </td>%>
         <td><%= link_to 'Editar', edit_emprestimo_path(emprestimo) %></td>
-        <td><%= link_to 'Devolução', devolucao_url(emprestimo.id) %></td>
-        <td><%= link_to 'Destroy', emprestimo, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Efetuar Devolução', devolucao_url(emprestimo.id) %></td>
+        <td><%= link_to 'Apagar do Registro', emprestimo, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <%end %>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
-<%= link_to 'Ativos', ativos_path, class: "button is-link"%>
-<%= link_to 'Atrasados', atrasados_path, class: "button is-link"%>
+<%= link_to 'Emprestimos Ativos', ativos_path, class: "button is-link"%>
+<%= link_to 'Emprestimos Atrasados', atrasados_path, class: "button is-link"%>
 

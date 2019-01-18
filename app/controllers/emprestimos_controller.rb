@@ -13,6 +13,12 @@ class EmprestimosController < ApplicationController
     end
   end
 
+  def search
+    livro = Livro.where(codigo: eparams[:inf])
+    user = User.where(matricula: eparams[:inf])
+    @emprestimos = Emprestimo.search(livro_id: livro.id).or(user_id: user.id)
+  end
+
   #GET /atrasados
   def atrasados
     if current_user.admin?

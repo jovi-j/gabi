@@ -13,6 +13,11 @@ class LivrosController < ApplicationController
   def show
   end
 
+  def search
+    livro = Livro.where(codigo: eparams[:codigo])
+    @emprestimos = Emprestimo.search(livro_id: livro.id)
+  end
+
   # GET /livros/new
   def new
     @livro = Livro.new

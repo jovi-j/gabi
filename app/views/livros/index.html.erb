@@ -1,6 +1,12 @@
 <p id="notice"><%= notice %></p>
-  <h1 class="title out-title">Livros</h1>
-</div>
+<div class="level">
+  <h1 class="title out-title level-left">Livros</h1>
+
+<%= form_tag("/emprestimos/buscar", method: "get", class: "form level-right") do %>
+  <%= text_field_tag(:inf, "", class: 'input is-small', placeholder: 'Procurar por matrícula ou titulo do livro...') %>
+  <%= submit_tag("Procurar", class: 'button is-small') %>
+  <% end %>
+  </div>
 
 <table class="table">
   <thead>
@@ -8,9 +14,9 @@
       <th>Titulo</th>
       <th>Codigo</th>
       <th>Autor</th>
-      <th>Especial</th>
+      <%# <th>Especial</th> %>
        <% if current_user.admin?%>
-      <th colspan="4">Opções</th>
+      <th colspan="2">Opções de Administrador</th>
        <%end%>
     </tr>
   </thead>
@@ -21,9 +27,9 @@
         <td><%= livro.titulo %></td>
         <td><%= livro.codigo %></td>
         <td><%= livro.autor %></td>
-        <td><%= livro.especial %></td>
+        <%# <td><%= livro.especial </td>%>
         <% if current_user.admin?%>
-        <td><%= link_to 'Detalhar Livro', livro %></td>
+        <%# <td><%= link_to 'Detalhar Livro', livro</td> %>
         <td><%= link_to 'Editar Livro', edit_livro_path(livro) %></td>
         <td><%= link_to 'Apagar Livro', livro, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <%end%>
